@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F1219"/>
+      <stop offset="100%" stop-color="#08090E"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background Squircle -->
+  <rect width="512" height="512" rx="112" fill="url(#bg3)"/>
+  <rect x="2" y="2" width="508" height="508" rx="110" fill="none" stroke="#252D3D" stroke-width="3"/>
+
+  <!-- Brutalist Monogram: [ N / R ] stylized -->
+  <g transform="translate(46, 76)">
+    <!-- 'N' constructed with sharp terminal slashes -->
+    <path d="M 50 20 L 105 20 L 105 340 L 50 340 Z" fill="#F0F4F8"/>
+    <polygon points="105,20 160,20 230,260 230,20 285,20 285,340 230,340 105,90" fill="#F0F4F8"/>
+    <path d="M 230 20 L 285 20 L 285 340 L 230 340 Z" fill="#F0F4F8"/>
+
+    <!-- Riot Accent: Slanted Slash / Hazard Spark separating or accenting -->
+    <polygon points="295,40 335,20 315,340 275,360" fill="#FF5500"/>
+
+    <!-- Terminal cursor dot / prompt underline -->
+    <rect x="345" y="270" width="45" height="70" rx="4" fill="#00F59B"/>
+  </g>
+</svg>

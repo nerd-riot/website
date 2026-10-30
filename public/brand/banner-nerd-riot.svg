@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 360" width="1280" height="360">
+  <defs>
+    <linearGradient id="bannerBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B0E14"/>
+      <stop offset="50%" stop-color="#0F141D"/>
+      <stop offset="100%" stop-color="#080A0E"/>
+    </linearGradient>
+    <linearGradient id="neonGreen" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00F59B"/>
+      <stop offset="100%" stop-color="#00E5FF"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#171D29" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- Background with subtle dev grid -->
+  <rect width="1280" height="360" rx="20" fill="url(#bannerBg)"/>
+  <rect width="1280" height="360" rx="20" fill="url(#grid)" opacity="0.6"/>
+  <rect x="1" y="1" width="1278" height="358" rx="19" fill="none" stroke="#222B3D" stroke-width="2"/>
+
+  <!-- Left Icon Mark: Rebel Terminal Prompt -->
+  <g transform="translate(80, 80)">
+    <!-- Container squircle -->
+    <rect width="200" height="200" rx="44" fill="#131924" stroke="#2A364F" stroke-width="2"/>
+    <!-- Terminal Chevron '>' -->
+    <path d="M 44 56 L 96 100 L 44 144 L 64 144 L 116 100 L 64 56 Z" fill="#00F59B"/>
+    <!-- Exclamation blade '!' -->
+    <polygon points="136,56 156,56 150,112 132,112" fill="#FFFFFF"/>
+    <polygon points="128,128 148,128 144,144 124,144" fill="#FF5500"/>
+  </g>
+
+  <!-- Typography & Tagline -->
+  <g transform="translate(320, 130)">
+    <!-- Organization Name -->
+    <text x="0" y="55" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Segoe UI', sans-serif" font-weight="900" font-size="64" letter-spacing="-1.5" fill="#FFFFFF">
+      NERD <tspan fill="url(#neonGreen)">RIOT</tspan>
+    </text>
+
+    <!-- Terminal Prompt Sub-badge -->
+    <rect x="365" y="14" width="70" height="28" rx="6" fill="#1C2638" stroke="#00F59B" stroke-width="1"/>
+    <text x="375" y="33" font-family="'JetBrains Mono', 'SF Mono', monospace" font-size="13" font-weight="700" fill="#00F59B">v1.0</text>
+
+    <!-- Tagline -->
+    <text x="0" y="102" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif" font-weight="500" font-size="22" fill="#8B949E" letter-spacing="-0.2">
+      A riot of tools for developers who give a damn.
+    </text>
+
+    <!-- Pillar chips / Sharp edges -->
+    <g transform="translate(0, 126)">
+      <text x="0" y="16" font-family="'JetBrains Mono', 'SF Mono', monospace" font-size="13" fill="#58A6FF">
+        Small tools. Sharp edges. No unnecessary bullshit.
+      </text>
+    </g>
+  </g>
+</svg>

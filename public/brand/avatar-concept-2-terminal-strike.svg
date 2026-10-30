@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#11141D"/>
+      <stop offset="100%" stop-color="#090B10"/>
+    </linearGradient>
+    <linearGradient id="neonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00FFA3"/>
+      <stop offset="100%" stop-color="#00D26A"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background container -->
+  <rect width="512" height="512" rx="112" fill="url(#bg2)"/>
+  <rect x="2" y="2" width="508" height="508" rx="110" fill="none" stroke="#232C3D" stroke-width="3"/>
+
+  <!-- Fused Terminal Bracket & Lightning Bolt -->
+  <!-- Top angle chevron turning into a lightning strike -->
+  <polygon points="128,140 264,140 328,240 264,240 352,372 176,276 244,276 172,196 128,196" 
+           fill="url(#neonGradient)"/>
+  
+  <!-- Rebellious underline cursor / accent bar -->
+  <rect x="180" y="340" width="180" height="32" rx="6" fill="#FACC15" transform="rotate(-6 270 356)"/>
+</svg>
