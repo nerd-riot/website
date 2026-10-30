@@ -22,7 +22,7 @@ const ASSET_REGISTRY: Record<string, AssetEntry> = {
     envKey: "GDRIVE_DBNERD_RELEASE_MAC_X64",
     fallbackUrl: "https://github.com/nerd-riot/db-nerd/releases/latest",
   },
-  // Beta Channel
+  // Beta Channel (macOS)
   "dbnerd-beta-macos-arm64-v0.1.0": {
     channel: "beta",
     filename: "DBNerd_Beta_0.1.0_aarch64.dmg",
@@ -33,6 +33,19 @@ const ASSET_REGISTRY: Record<string, AssetEntry> = {
     channel: "beta",
     filename: "DBNerd_Beta_0.1.0_x64.dmg",
     envKey: "GDRIVE_DBNERD_BETA_MAC_X64",
+    fallbackUrl: "https://github.com/nerd-riot/db-nerd/releases",
+  },
+  // Beta Channel (Windows)
+  "dbnerd-beta-windows-setup-v0.1.0": {
+    channel: "beta",
+    filename: "DBNerd_Beta_0.1.0_Windows_x64_Setup.exe",
+    envKey: "GDRIVE_DBNERD_BETA_WIN_SETUP",
+    fallbackUrl: "https://github.com/nerd-riot/db-nerd/releases",
+  },
+  "dbnerd-beta-windows-standalone-v0.1.0": {
+    channel: "beta",
+    filename: "DBNerd_Beta_0.1.0_Windows_x64_standalone.exe",
+    envKey: "GDRIVE_DBNERD_BETA_WIN_STANDALONE",
     fallbackUrl: "https://github.com/nerd-riot/db-nerd/releases",
   },
   // Legacy aliases
