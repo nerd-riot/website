@@ -27,21 +27,31 @@ export async function streamFromGoogleDrive(fileIdOrUrl: string, fallbackFilenam
     return createStreamResponse(initialRes, fallbackFilename);
   }
 
-  // Step 2: Handle Google Drive "large file virus scan warning" page (>25MB)
+  // Step 2: Handle Google Drive "large file virus scan warning" page (>25MB or executables)
   const html = await initialRes.text();
   
-  // Extract confirm token from form or link
-  // e.g. <a id="uc-download-link" href="/uc?export=download&amp;confirm=t&amp;id=...">
-  // or href="/uc?export=download&confirm=xxxx&id=..."
-  const confirmMatch = html.match(/confirm=([0-9a-zA-Z_-]+)/);
-  const confirmToken = confirmMatch ? confirmMatch[1] : "t";
+  // Extract form action and inputs (id, export, confirm, uuid)
+  const formActionMatch = html.match(/<form[^>]+action="([^"]+)"/);
+  const formAction = formActionMatch ? formActionMatch[1] : "https://drive.usercontent.google.com/download";
+  
+  const queryParams = new URLSearchParams();
+  const inputMatches = [...html.matchAll(/<input[^>]+name="([^"]+)"[^>]+value="([^"]*)"/g)];
+  for (const m of inputMatches) {
+    queryParams.set(m[1], m[2]);
+  }
 
-  // Extract cookies from initial response
+  // Ensure mandatory fallback params if inputs missing
+  if (!queryParams.has("id")) queryParams.set("id", fileId);
+  if (!queryParams.has("export")) queryParams.set("export", "download");
+  if (!queryParams.has("confirm")) {
+    const confirmMatch = html.match(/confirm=([0-9a-zA-Z_-]+)/);
+    queryParams.set("confirm", confirmMatch ? confirmMatch[1] : "t");
+  }
+
+  const downloadUrl = `${formAction}?${queryParams.toString()}`;
   const cookies = initialRes.headers.get("set-cookie") || "";
 
-  const confirmUrl = `https://drive.google.com/uc?export=download&confirm=${confirmToken}&id=${fileId}`;
-
-  const confirmedRes = await fetch(confirmUrl, {
+  const confirmedRes = await fetch(downloadUrl, {
     method: "GET",
     headers: {
       "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",

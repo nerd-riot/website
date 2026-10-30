@@ -5,6 +5,7 @@ interface AssetEntry {
   channel: "release" | "beta";
   filename: string;
   envKey: string;
+  defaultFileId?: string;
   fallbackFolderUrl: string;
 }
 
@@ -32,11 +33,19 @@ const ASSET_REGISTRY: Record<string, AssetEntry> = {
     fallbackFolderUrl: GDRIVE_RELEASE_FOLDER,
   },
 
-  // Beta Channel
+  // Beta Channel - pre-wired directly to uploaded Google Drive file IDs
   "dbnerd-beta-macos-arm64-v0.1.0": {
     channel: "beta",
     filename: "DBNerd_Beta_0.1.0_aarch64.dmg",
     envKey: "GDRIVE_DBNERD_BETA_MAC_ARM64",
+    defaultFileId: "1StnGQwTd-xKj64IdWTO0a8K0ee9-8HDw",
+    fallbackFolderUrl: GDRIVE_BETA_FOLDER,
+  },
+  "dbnerd-beta-macos-zip-v0.1.0": {
+    channel: "beta",
+    filename: "DBNerd_Beta_0.1.0_macOS_aarch64.zip",
+    envKey: "GDRIVE_DBNERD_BETA_MAC_ZIP",
+    defaultFileId: "1liDIcUj-Bjy7lDTzSSMPnthvbAu_7dLT",
     fallbackFolderUrl: GDRIVE_BETA_FOLDER,
   },
   "dbnerd-beta-macos-x64-v0.1.0": {
@@ -49,12 +58,14 @@ const ASSET_REGISTRY: Record<string, AssetEntry> = {
     channel: "beta",
     filename: "DBNerd_Beta_0.1.0_Windows_x64_Setup.exe",
     envKey: "GDRIVE_DBNERD_BETA_WIN_SETUP",
+    defaultFileId: "1YBZrB3dgQDST1ApD4qF5M0R1h33oaoQi",
     fallbackFolderUrl: GDRIVE_BETA_FOLDER,
   },
   "dbnerd-beta-windows-standalone-v0.1.0": {
     channel: "beta",
     filename: "DBNerd_Beta_0.1.0_Windows_x64_standalone.exe",
     envKey: "GDRIVE_DBNERD_BETA_WIN_STANDALONE",
+    defaultFileId: "1ICq038YVe9FL4XnEwwqy5YExxyHuBY_a",
     fallbackFolderUrl: GDRIVE_BETA_FOLDER,
   },
 
@@ -115,9 +126,9 @@ export async function GET(
     } catch {}
   }
 
-  // 1. If individual Google Drive File ID / Share link is set in Environment:
+  // 1. If individual Google Drive File ID / Share link is set in Environment or Default:
   // BFF streams the file directly to the client with hidden Google Drive URL!
-  const gdriveId = process.env[asset.envKey];
+  const gdriveId = process.env[asset.envKey] || asset.defaultFileId;
 
   if (gdriveId && gdriveId.trim().length > 0) {
     try {
