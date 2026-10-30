@@ -5,8 +5,11 @@ interface AssetEntry {
   channel: "release" | "beta";
   filename: string;
   envKey: string;
-  fallbackUrl: string;
+  fallbackFolderUrl: string;
 }
+
+const GDRIVE_BETA_FOLDER = "https://drive.google.com/drive/folders/1UyCPmcmzTasiJujR3QbRgV573UmApLeX?usp=drive_link";
+const GDRIVE_RELEASE_FOLDER = "https://drive.google.com/drive/folders/178UfDA2B63ZosCGT-bLjMVzH29MgjUC4?usp=drive_link";
 
 const ASSET_REGISTRY: Record<string, AssetEntry> = {
   // Release (Stable) Channel
@@ -14,52 +17,59 @@ const ASSET_REGISTRY: Record<string, AssetEntry> = {
     channel: "release",
     filename: "DBNerd_0.1.0_aarch64.dmg",
     envKey: "GDRIVE_DBNERD_RELEASE_MAC_ARM64",
-    fallbackUrl: "https://github.com/nerd-riot/db-nerd/releases/latest",
+    fallbackFolderUrl: GDRIVE_RELEASE_FOLDER,
   },
   "dbnerd-release-macos-x64-v0.1.0": {
     channel: "release",
     filename: "DBNerd_0.1.0_x64.dmg",
     envKey: "GDRIVE_DBNERD_RELEASE_MAC_X64",
-    fallbackUrl: "https://github.com/nerd-riot/db-nerd/releases/latest",
+    fallbackFolderUrl: GDRIVE_RELEASE_FOLDER,
   },
-  // Beta Channel (macOS)
+  "dbnerd-release-windows-setup-v0.1.0": {
+    channel: "release",
+    filename: "DBNerd_0.1.0_Windows_x64_Setup.exe",
+    envKey: "GDRIVE_DBNERD_RELEASE_WIN_SETUP",
+    fallbackFolderUrl: GDRIVE_RELEASE_FOLDER,
+  },
+
+  // Beta Channel
   "dbnerd-beta-macos-arm64-v0.1.0": {
     channel: "beta",
     filename: "DBNerd_Beta_0.1.0_aarch64.dmg",
     envKey: "GDRIVE_DBNERD_BETA_MAC_ARM64",
-    fallbackUrl: "https://github.com/nerd-riot/db-nerd/releases",
+    fallbackFolderUrl: GDRIVE_BETA_FOLDER,
   },
   "dbnerd-beta-macos-x64-v0.1.0": {
     channel: "beta",
     filename: "DBNerd_Beta_0.1.0_x64.dmg",
     envKey: "GDRIVE_DBNERD_BETA_MAC_X64",
-    fallbackUrl: "https://github.com/nerd-riot/db-nerd/releases",
+    fallbackFolderUrl: GDRIVE_BETA_FOLDER,
   },
-  // Beta Channel (Windows)
   "dbnerd-beta-windows-setup-v0.1.0": {
     channel: "beta",
     filename: "DBNerd_Beta_0.1.0_Windows_x64_Setup.exe",
     envKey: "GDRIVE_DBNERD_BETA_WIN_SETUP",
-    fallbackUrl: "https://github.com/nerd-riot/db-nerd/releases",
+    fallbackFolderUrl: GDRIVE_BETA_FOLDER,
   },
   "dbnerd-beta-windows-standalone-v0.1.0": {
     channel: "beta",
     filename: "DBNerd_Beta_0.1.0_Windows_x64_standalone.exe",
     envKey: "GDRIVE_DBNERD_BETA_WIN_STANDALONE",
-    fallbackUrl: "https://github.com/nerd-riot/db-nerd/releases",
+    fallbackFolderUrl: GDRIVE_BETA_FOLDER,
   },
+
   // Legacy aliases
   "dbnerd-macos-arm64-v0.1.0": {
     channel: "release",
     filename: "DBNerd_0.1.0_aarch64.dmg",
     envKey: "GDRIVE_DBNERD_RELEASE_MAC_ARM64",
-    fallbackUrl: "https://github.com/nerd-riot/db-nerd/releases/latest",
+    fallbackFolderUrl: GDRIVE_RELEASE_FOLDER,
   },
   "dbnerd-macos-x64-v0.1.0": {
     channel: "release",
     filename: "DBNerd_0.1.0_x64.dmg",
     envKey: "GDRIVE_DBNERD_RELEASE_MAC_X64",
-    fallbackUrl: "https://github.com/nerd-riot/db-nerd/releases/latest",
+    fallbackFolderUrl: GDRIVE_RELEASE_FOLDER,
   },
 };
 
@@ -95,7 +105,7 @@ export async function GET(
           project_id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11", // DBNerd
           event_type: "download_requested",
           source: referer.includes("/releases") ? "website" : "direct",
-          platform: "macos",
+          platform: assetId.includes("windows") ? "windows" : "macos",
           architecture: assetId.includes("arm64") ? "arm64" : "x64",
           user_agent: userAgent,
           referer: referer,
@@ -105,21 +115,19 @@ export async function GET(
     } catch {}
   }
 
-  // Check Google Drive configuration
+  // 1. If individual Google Drive File ID / Share link is set in Environment:
+  // BFF streams the file directly to the client with hidden Google Drive URL!
   const gdriveId = process.env[asset.envKey];
 
   if (gdriveId && gdriveId.trim().length > 0) {
     try {
-      // BFF streams the file from Google Drive directly to the client
-      // The Google Drive URL is completely hidden from the user.
       return await streamFromGoogleDrive(gdriveId, asset.filename);
     } catch (gdriveErr) {
       console.error(`Error streaming from Google Drive for ${assetId}:`, gdriveErr);
-      // Fallback to fallbackUrl if Google Drive stream fails
-      return NextResponse.redirect(asset.fallbackUrl, 302);
+      return NextResponse.redirect(asset.fallbackFolderUrl, 302);
     }
   }
 
-  // Fallback to GitHub Release if Google Drive variable is not yet filled
-  return NextResponse.redirect(asset.fallbackUrl, 302);
+  // 2. Fallback to Google Drive channel folder
+  return NextResponse.redirect(asset.fallbackFolderUrl, 302);
 }

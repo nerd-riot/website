@@ -22,14 +22,14 @@ const releasesData = [
       "Independent bundle identity: com.dbnerd.desktop.beta (safe to install alongside Stable).",
     ],
     assets: [
-      { name: "DBNerd_Beta_0.1.0_aarch64.dmg", platform: "macOS ARM64", size: "14.4 MB", id: "dbnerd-beta-macos-arm64-v0.1.0" },
-      { name: "DBNerd_Beta_0.1.0_x64.dmg", platform: "macOS x64", size: "16.0 MB", id: "dbnerd-beta-macos-x64-v0.1.0" },
+      { name: "DBNerd_Beta_0.1.0_aarch64.dmg", platform: "macOS ARM64", size: "11.7 MB", id: "dbnerd-beta-macos-arm64-v0.1.0" },
+      { name: "DBNerd_Beta_0.1.0_Windows_x64_Setup.exe", platform: "Windows x64", size: "9.8 MB", id: "dbnerd-beta-windows-setup-v0.1.0" },
     ],
   },
   {
     project: "DBNerd",
     version: "v0.1.0",
-    date: "2026-10-29",
+    date: "2026-10-30",
     channel: "release",
     channelBadge: "bg-emerald-500/20 border-emerald-500/40 text-emerald-400",
     description: "Official stable production release. Validated performance benchmarks and rock-solid database connectivity.",
@@ -39,11 +39,11 @@ const releasesData = [
       "High-density 120 FPS data grid with instant search and inline cell editing.",
       "Safe Mode for Production: destructive operations require explicit manual typing confirmation.",
       "Integrated observability HUD for real-time connection telemetry.",
-      "macOS Apple Silicon (aarch64) and Intel (x64) builds.",
+      "Native Apple Silicon (ARM64) and Windows 64-bit installers.",
     ],
     assets: [
-      { name: "DBNerd_0.1.0_aarch64.dmg", platform: "macOS ARM64", size: "14.2 MB", id: "dbnerd-release-macos-arm64-v0.1.0" },
-      { name: "DBNerd_0.1.0_x64.dmg", platform: "macOS x64", size: "15.8 MB", id: "dbnerd-release-macos-x64-v0.1.0" },
+      { name: "DBNerd_0.1.0_aarch64.dmg", platform: "macOS ARM64", size: "11.6 MB", id: "dbnerd-release-macos-arm64-v0.1.0" },
+      { name: "DBNerd_0.1.0_Windows_x64_Setup.exe", platform: "Windows x64", size: "9.8 MB", id: "dbnerd-release-windows-setup-v0.1.0" },
     ],
   },
 ];

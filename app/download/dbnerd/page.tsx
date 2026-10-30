@@ -18,12 +18,13 @@ function DownloadDBNerdPage() {
       bundleId: "com.dbnerd.desktop",
       armDmg: "DBNerd_0.1.0_aarch64.dmg",
       armAssetId: "dbnerd-release-macos-arm64-v0.1.0",
-      armSha: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      armSize: "14.2 MB",
+      armSha: "a923a30cf9451e7fdeb60ec05cd111ffd39a4088453f1b9385c0692589ced750",
+      armSize: "11.6 MB",
+      gdriveFolder: "https://drive.google.com/drive/folders/178UfDA2B63ZosCGT-bLjMVzH29MgjUC4?usp=drive_link",
       winSetup: "DBNerd_0.1.0_Windows_x64_Setup.exe",
       winAssetId: "dbnerd-release-windows-setup-v0.1.0",
-      winSha: "b5bb9d8014a0f9b1d61e21e796d78dccdf1352f23cd32812f4850b878ae4944c",
-      winSize: "12.5 MB",
+      winSha: "dcce6c2ad22eeff5cadd93fa7ecc62d4f9f92a112e827fac8103e066198d5a06",
+      winSize: "9.8 MB",
     },
     beta: {
       name: "DBNerd Beta",
@@ -36,6 +37,7 @@ function DownloadDBNerdPage() {
       armAssetId: "dbnerd-beta-macos-arm64-v0.1.0",
       armSha: "8b0c34f79861bc018658c548535656017623b9759e72c6fdbf0b16a7421afce6",
       armSize: "11.7 MB",
+      gdriveFolder: "https://drive.google.com/drive/folders/1UyCPmcmzTasiJujR3QbRgV573UmApLeX?usp=drive_link",
       winSetup: "DBNerd_Beta_0.1.0_Windows_x64_Setup.exe",
       winAssetId: "dbnerd-beta-windows-setup-v0.1.0",
       winSha: "dcce6c2ad22eeff5cadd93fa7ecc62d4f9f92a112e827fac8103e066198d5a06",
@@ -124,10 +126,19 @@ function DownloadDBNerdPage() {
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center flex-wrap gap-2">
               <span className="text-xs font-mono px-3 py-1.5 rounded bg-[#111318] border border-[#30343D] text-zinc-300">
                 macOS 12+ &bull; Windows 10/11
               </span>
+              <a
+                href={current.gdriveFolder}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded bg-[#111318] hover:bg-[#242832] border border-[#30343D] hover:border-accent text-zinc-300 hover:text-white transition-all"
+              >
+                <span>Browse Drive Folder</span>
+                <ExternalLink className="w-3 h-3 text-accent" />
+              </a>
             </div>
           </div>
 
