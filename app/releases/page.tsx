@@ -1,31 +1,49 @@
 import React from "react";
 import Link from "next/link";
-import { ArrowLeft, Tag, Calendar, Download, CheckCircle2 } from "lucide-react";
-import { GithubIcon as Github } from "@/components/ui/Icons";
+import { ArrowLeft, Calendar, Download, CheckCircle2, Sparkles, ShieldCheck } from "lucide-react";
 
 export const metadata = {
   title: "Releases & Changelogs — NERD RIOT",
-  description: "Official releases, release notes, and version history for NERD RIOT software.",
+  description: "Official releases, release notes, and version history for NERD RIOT software across Stable and Beta channels.",
 };
 
 const releasesData = [
   {
     project: "DBNerd",
-    version: "v0.1.0-beta",
-    date: "2026-10-29",
+    version: "v0.1.0-beta.2",
+    date: "2026-10-30",
     channel: "beta",
+    channelBadge: "bg-accent/20 border-accent/40 text-accent",
+    description: "Cutting-edge channel with preview features, Snowflake connector improvements, and experimental data grid tuning.",
     notes: [
-      "Initial public preview with Tauri v2 + Rust Core.",
-      "PostgreSQL and MySQL native connection pooling with SSL.",
-      "Snowflake cloud data warehouse connector with warehouse switcher.",
+      "Added Snowflake cloud data warehouse schema tree preview.",
+      "Optimized 120 FPS canvas scrolling under 200,000+ cached rows.",
+      "Fine-tuned Safe Mode confirmation dialogs for DROP and TRUNCATE queries.",
+      "Independent bundle identity: com.dbnerd.desktop.beta (safe to install alongside Stable).",
+    ],
+    assets: [
+      { name: "DBNerd_Beta_0.1.0_aarch64.dmg", platform: "macOS ARM64", size: "14.4 MB", id: "dbnerd-beta-macos-arm64-v0.1.0" },
+      { name: "DBNerd_Beta_0.1.0_x64.dmg", platform: "macOS x64", size: "16.0 MB", id: "dbnerd-beta-macos-x64-v0.1.0" },
+    ],
+  },
+  {
+    project: "DBNerd",
+    version: "v0.1.0",
+    date: "2026-10-29",
+    channel: "release",
+    channelBadge: "bg-emerald-500/20 border-emerald-500/40 text-emerald-400",
+    description: "Official stable production release. Validated performance benchmarks and rock-solid database connectivity.",
+    notes: [
+      "Initial production release with Tauri v2 + Rust Core.",
+      "PostgreSQL and MySQL native connection pooling with SSL profiles.",
       "High-density 120 FPS data grid with instant search and inline cell editing.",
-      "Safe Mode for Production: destructive DROP/TRUNCATE queries require explicit manual typing confirmation.",
-      "Integrated observability HUD for real-time connection stats and query logs.",
+      "Safe Mode for Production: destructive operations require explicit manual typing confirmation.",
+      "Integrated observability HUD for real-time connection telemetry.",
       "macOS Apple Silicon (aarch64) and Intel (x64) builds.",
     ],
     assets: [
-      { name: "DBNerd_0.1.0_aarch64.dmg", platform: "macOS ARM64", size: "14.2 MB", id: "dbnerd-macos-arm64-v0.1.0" },
-      { name: "DBNerd_0.1.0_x64.dmg", platform: "macOS x64", size: "15.8 MB", id: "dbnerd-macos-x64-v0.1.0" },
+      { name: "DBNerd_0.1.0_aarch64.dmg", platform: "macOS ARM64", size: "14.2 MB", id: "dbnerd-release-macos-arm64-v0.1.0" },
+      { name: "DBNerd_0.1.0_x64.dmg", platform: "macOS x64", size: "15.8 MB", id: "dbnerd-release-macos-x64-v0.1.0" },
     ],
   },
 ];
@@ -53,14 +71,14 @@ export default function ReleasesPage() {
             Software Releases &amp; Changelogs
           </h1>
           <p className="text-sm text-dark-muted font-sans leading-relaxed">
-            All releases are verified with SHA-256 signatures and hosted directly on Cloudflare R2 with immutable storage keys.
+            All releases are verified with SHA-256 signatures and hosted directly on Cloudflare R2 with immutable storage keys across Stable and Beta channels.
           </p>
         </div>
 
         <div className="space-y-8">
           {releasesData.map((rel) => (
             <div
-              key={`${rel.project}-${rel.version}`}
+              key={`${rel.project}-${rel.version}-${rel.channel}`}
               className="p-6 sm:p-8 rounded-xl bg-[#1A1D24] border border-[#30343D] shadow-terminal space-y-6"
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#30343D]">
@@ -72,7 +90,7 @@ export default function ReleasesPage() {
                     <span className="font-mono text-sm text-accent font-semibold">
                       {rel.version}
                     </span>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-accent/20 border border-accent/40 text-accent uppercase font-bold">
+                    <span className={`text-[10px] font-mono px-2 py-0.5 rounded border uppercase font-bold ${rel.channelBadge}`}>
                       {rel.channel}
                     </span>
                   </div>
@@ -93,7 +111,10 @@ export default function ReleasesPage() {
 
               {/* Release Notes */}
               <div className="space-y-2">
-                <h3 className="font-mono text-xs uppercase tracking-wider text-dark-muted font-bold">
+                <p className="text-xs text-dark-muted font-mono">
+                  {rel.description}
+                </p>
+                <h3 className="font-mono text-xs uppercase tracking-wider text-dark-muted font-bold pt-2">
                   What&apos;s New
                 </h3>
                 <ul className="space-y-2">
@@ -109,7 +130,7 @@ export default function ReleasesPage() {
               {/* Assets list */}
               <div className="pt-4 border-t border-[#30343D] space-y-2">
                 <h4 className="font-mono text-xs uppercase tracking-wider text-dark-muted font-bold">
-                  Release Binaries
+                  Release Binaries ({rel.channel.toUpperCase()})
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {rel.assets.map((asset) => (
