@@ -12,9 +12,36 @@ interface AssetEntry {
 
 const GDRIVE_BETA_FOLDER = "https://drive.google.com/drive/folders/1UyCPmcmzTasiJujR3QbRgV573UmApLeX?usp=drive_link";
 const GDRIVE_RELEASE_FOLDER = "https://drive.google.com/drive/folders/178UfDA2B63ZosCGT-bLjMVzH29MgjUC4?usp=drive_link";
+const GITHUB_RELEASE_V123 = "https://github.com/nerd-riot/db-nerd/releases/download/v1.2.3";
 const GITHUB_RELEASE_V122 = "https://github.com/nerd-riot/db-nerd/releases/download/v1.2.2";
 
 const ASSET_REGISTRY: Record<string, AssetEntry> = {
+  // Release v1.2.3 (Official GitHub Releases CDN)
+  "dbnerd-release-macos-arm64-v1.2.3": {
+    channel: "release",
+    filename: "DBNerd_1.2.3_aarch64.dmg",
+    directUrl: `${GITHUB_RELEASE_V123}/DBNerd_1.2.3_aarch64.dmg`,
+    fallbackFolderUrl: "https://github.com/nerd-riot/db-nerd/releases/tag/v1.2.3",
+  },
+  "dbnerd-release-macos-zip-v1.2.3": {
+    channel: "release",
+    filename: "DBNerd_1.2.3_macOS_aarch64.zip",
+    directUrl: `${GITHUB_RELEASE_V123}/DBNerd_1.2.3_macOS_aarch64.zip`,
+    fallbackFolderUrl: "https://github.com/nerd-riot/db-nerd/releases/tag/v1.2.3",
+  },
+  "dbnerd-release-windows-setup-v1.2.3": {
+    channel: "release",
+    filename: "DBNerd_1.2.3_Windows_x64_Setup.exe",
+    directUrl: `${GITHUB_RELEASE_V123}/DBNerd_1.2.3_Windows_x64_Setup.exe`,
+    fallbackFolderUrl: "https://github.com/nerd-riot/db-nerd/releases/tag/v1.2.3",
+  },
+  "dbnerd-release-windows-standalone-v1.2.3": {
+    channel: "release",
+    filename: "DBNerd_1.2.3_Windows_x64_standalone.exe",
+    directUrl: `${GITHUB_RELEASE_V123}/DBNerd_1.2.3_Windows_x64_standalone.exe`,
+    fallbackFolderUrl: "https://github.com/nerd-riot/db-nerd/releases/tag/v1.2.3",
+  },
+
   // Release v1.2.2 (Official GitHub Releases CDN)
   "dbnerd-release-macos-arm64-v1.2.2": {
     channel: "release",

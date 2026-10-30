@@ -33,7 +33,7 @@ export function Hero() {
           {/* Product Status Badge */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1A1D24] border border-[#30343D] text-xs font-mono text-dark-text shadow-sm hover:border-accent transition-colors">
             <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="font-semibold text-accent">DBNerd v1.2.2</span>
+            <span className="font-semibold text-accent">DBNerd v1.2.3</span>
             <span className="text-[#30343D]">•</span>
             <span className="text-emerald-400 font-bold">Stable Release &amp; Homebrew Tap Ready</span>
           </div>

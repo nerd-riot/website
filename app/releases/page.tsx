@@ -30,6 +30,52 @@ interface ReleaseItem {
 const releasesData: ReleaseItem[] = [
   {
     project: "DBNerd",
+    version: "v1.2.3",
+    date: "2026-10-31",
+    channel: "release",
+    channelBadge: "bg-emerald-500/20 border-emerald-500/40 text-emerald-400",
+    description: "Production update with automatic Snowflake secondary role inheritance, full schema-qualified queries across grid pagination, DDL inspection, and exact count calculation.",
+    homebrew: "brew install --cask nerd-riot/tap/dbnerd",
+    notes: [
+      "Snowflake Secondary Roles: Automatically activates all granted roles (USE SECONDARY ROLES ALL;) on session initialization, resolving 002003 authorization errors.",
+      "Dialect Schema Qualification: Automatically qualifies table queries with database and schema (\"DATABASE\".\"SCHEMA\".\"TABLE\") across grid pagination, record counts, and structure inspection.",
+      "Snowflake Schema & DDL Engine: Native metadata retrieval via INFORMATION_SCHEMA.COLUMNS and GET_DDL with primary key constraint detection.",
+      "Sidebar & Context Menu Actions: Fully schema-aware table context menus, query generation, and CREATE TABLE DDL copying.",
+      "Updated Homebrew Tap Cask formula with direct release binary checksums.",
+    ],
+    assets: [
+      {
+        name: "DBNerd_1.2.3_aarch64.dmg",
+        platform: "macOS Apple Silicon (ARM64)",
+        size: "11.9 MB",
+        id: "dbnerd-release-macos-arm64-v1.2.3",
+        directUrl: "https://github.com/nerd-riot/db-nerd/releases/download/v1.2.3/DBNerd_1.2.3_aarch64.dmg",
+      },
+      {
+        name: "DBNerd_1.2.3_macOS_aarch64.zip",
+        platform: "macOS ZIP Archive",
+        size: "11.5 MB",
+        id: "dbnerd-release-macos-zip-v1.2.3",
+        directUrl: "https://github.com/nerd-riot/db-nerd/releases/download/v1.2.3/DBNerd_1.2.3_macOS_aarch64.zip",
+      },
+      {
+        name: "DBNerd_1.2.3_Windows_x64_Setup.exe",
+        platform: "Windows x64 Setup",
+        size: "9.8 MB",
+        id: "dbnerd-release-windows-setup-v1.2.3",
+        directUrl: "https://github.com/nerd-riot/db-nerd/releases/download/v1.2.3/DBNerd_1.2.3_Windows_x64_Setup.exe",
+      },
+      {
+        name: "DBNerd_1.2.3_Windows_x64_standalone.exe",
+        platform: "Windows Portable Standalone",
+        size: "16.1 MB",
+        id: "dbnerd-release-windows-standalone-v1.2.3",
+        directUrl: "https://github.com/nerd-riot/db-nerd/releases/download/v1.2.3/DBNerd_1.2.3_Windows_x64_standalone.exe",
+      },
+    ],
+  },
+  {
+    project: "DBNerd",
     version: "v1.2.2",
     date: "2026-10-31",
     channel: "release",
