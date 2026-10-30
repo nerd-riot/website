@@ -1,13 +1,21 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { ProductVideoTheater } from "@/components/ui/ProductVideoTheater";
-import { ArrowRight, Download, Play, ShieldCheck, Zap, Layers, Sparkles, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Download, Play, ShieldCheck, Zap, Layers, Sparkles, CheckCircle2, Copy, Check } from "lucide-react";
 import { GithubIcon as Github } from "@/components/ui/Icons";
 
 export function Hero() {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   const scrollToVideo = () => {
     const el = document.getElementById("product-video-theater");
     if (el) {
@@ -25,9 +33,9 @@ export function Hero() {
           {/* Product Status Badge */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1A1D24] border border-[#30343D] text-xs font-mono text-dark-text shadow-sm hover:border-accent transition-colors">
             <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="font-semibold text-accent">DBNerd v0.1.0</span>
+            <span className="font-semibold text-accent">DBNerd v1.2.2</span>
             <span className="text-[#30343D]">•</span>
-            <span className="text-emerald-400 font-bold">Stable &amp; Beta Channels Ready</span>
+            <span className="text-emerald-400 font-bold">Stable Release &amp; Homebrew Tap Ready</span>
           </div>
 
           {/* Headline: Product-First, No Code Guides */}
@@ -68,6 +76,25 @@ export function Hero() {
               <span>Changelog</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
+          </div>
+
+          {/* Quick Homebrew Command Pill */}
+          <div className="pt-1 flex items-center justify-center">
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-lg bg-[#0e1015] border border-[#30343D] hover:border-accent/60 transition-all font-mono text-xs text-zinc-300 shadow-inner group">
+              <span className="text-accent font-bold select-none">$</span>
+              <code className="text-zinc-100 select-all font-mono">brew install --cask nerd-riot/tap/dbnerd</code>
+              <button
+                onClick={() => handleCopy("brew install --cask nerd-riot/tap/dbnerd")}
+                className="ml-1 p-1 hover:text-white text-zinc-400 hover:text-accent transition-colors"
+                title="Copy Homebrew command"
+              >
+                {copied ? (
+                  <Check className="w-3.5 h-3.5 text-accent" />
+                ) : (
+                  <Copy className="w-3.5 h-3.5" />
+                )}
+              </button>
+            </div>
           </div>
 
           {/* Feature Highlights Quick Pills */}

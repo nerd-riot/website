@@ -4,16 +4,44 @@ import { streamFromGoogleDrive } from "@/lib/gdrive";
 interface AssetEntry {
   channel: "release" | "beta";
   filename: string;
-  envKey: string;
+  directUrl?: string;
+  envKey?: string;
   defaultFileId?: string;
   fallbackFolderUrl: string;
 }
 
 const GDRIVE_BETA_FOLDER = "https://drive.google.com/drive/folders/1UyCPmcmzTasiJujR3QbRgV573UmApLeX?usp=drive_link";
 const GDRIVE_RELEASE_FOLDER = "https://drive.google.com/drive/folders/178UfDA2B63ZosCGT-bLjMVzH29MgjUC4?usp=drive_link";
+const GITHUB_RELEASE_V122 = "https://github.com/nerd-riot/db-nerd/releases/download/v1.2.2";
 
 const ASSET_REGISTRY: Record<string, AssetEntry> = {
-  // Release (Stable) Channel
+  // Release v1.2.2 (Official GitHub Releases CDN)
+  "dbnerd-release-macos-arm64-v1.2.2": {
+    channel: "release",
+    filename: "DBNerd_1.2.2_aarch64.dmg",
+    directUrl: `${GITHUB_RELEASE_V122}/DBNerd_1.2.2_aarch64.dmg`,
+    fallbackFolderUrl: "https://github.com/nerd-riot/db-nerd/releases/tag/v1.2.2",
+  },
+  "dbnerd-release-macos-zip-v1.2.2": {
+    channel: "release",
+    filename: "DBNerd_1.2.2_macOS_aarch64.zip",
+    directUrl: `${GITHUB_RELEASE_V122}/DBNerd_1.2.2_macOS_aarch64.zip`,
+    fallbackFolderUrl: "https://github.com/nerd-riot/db-nerd/releases/tag/v1.2.2",
+  },
+  "dbnerd-release-windows-setup-v1.2.2": {
+    channel: "release",
+    filename: "DBNerd_1.2.2_Windows_x64_Setup.exe",
+    directUrl: `${GITHUB_RELEASE_V122}/DBNerd_1.2.2_Windows_x64_Setup.exe`,
+    fallbackFolderUrl: "https://github.com/nerd-riot/db-nerd/releases/tag/v1.2.2",
+  },
+  "dbnerd-release-windows-standalone-v1.2.2": {
+    channel: "release",
+    filename: "DBNerd_1.2.2_Windows_x64_standalone.exe",
+    directUrl: `${GITHUB_RELEASE_V122}/DBNerd_1.2.2_Windows_x64_standalone.exe`,
+    fallbackFolderUrl: "https://github.com/nerd-riot/db-nerd/releases/tag/v1.2.2",
+  },
+
+  // Release (Stable) Channel legacy
   "dbnerd-release-macos-arm64-v0.1.0": {
     channel: "release",
     filename: "DBNerd_0.1.0_aarch64.dmg",
@@ -126,9 +154,14 @@ export async function GET(
     } catch {}
   }
 
-  // 1. If individual Google Drive File ID / Share link is set in Environment or Default:
+  // 1. Direct High-Speed CDN URL (e.g., GitHub Releases)
+  if (asset.directUrl) {
+    return NextResponse.redirect(asset.directUrl, 302);
+  }
+
+  // 2. If individual Google Drive File ID / Share link is set in Environment or Default:
   // BFF streams the file directly to the client with hidden Google Drive URL!
-  const gdriveId = process.env[asset.envKey] || asset.defaultFileId;
+  const gdriveId = (asset.envKey ? process.env[asset.envKey] : undefined) || asset.defaultFileId;
 
   if (gdriveId && gdriveId.trim().length > 0) {
     try {

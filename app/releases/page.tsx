@@ -7,7 +7,74 @@ export const metadata = {
   description: "Official releases, release notes, and version history for NERD RIOT software across Stable and Beta channels.",
 };
 
-const releasesData = [
+interface ReleaseAsset {
+  name: string;
+  platform: string;
+  size: string;
+  id: string;
+  directUrl?: string;
+}
+
+interface ReleaseItem {
+  project: string;
+  version: string;
+  date: string;
+  channel: string;
+  channelBadge: string;
+  description: string;
+  homebrew?: string;
+  notes: string[];
+  assets: ReleaseAsset[];
+}
+
+const releasesData: ReleaseItem[] = [
+  {
+    project: "DBNerd",
+    version: "v1.2.2",
+    date: "2026-10-31",
+    channel: "release",
+    channelBadge: "bg-emerald-500/20 border-emerald-500/40 text-emerald-400",
+    description: "Official production release with Airtame-style DMG layout, Homebrew Tap Cask formula with automated Gatekeeper bypass, and multiplatform Windows installers.",
+    homebrew: "brew install --cask nerd-riot/tap/dbnerd",
+    notes: [
+      "Official Homebrew Tap Cask formula (brew install --cask nerd-riot/tap/dbnerd) with automated Gatekeeper quarantine stripping (xattr -cr).",
+      "macOS DMG overhauled with Airtame-style clean white Retina background, custom 120px icons, and drag-to-Applications shortcut.",
+      "Native Apple Silicon (ARM64) standalone DMG, ZIP archive, and ad-hoc sealed codesign integrity.",
+      "Windows 64-bit NSIS Setup wizard and zero-install standalone portable executables.",
+      "Native Snowflake Enterprise DW connector with Browser SSO and RSA Key-Pair authentication.",
+      "5-round performance, memory leak, and panic containment hardening cycle completed.",
+    ],
+    assets: [
+      {
+        name: "DBNerd_1.2.2_aarch64.dmg",
+        platform: "macOS Apple Silicon (ARM64)",
+        size: "11.9 MB",
+        id: "dbnerd-release-macos-arm64-v1.2.2",
+        directUrl: "https://github.com/nerd-riot/db-nerd/releases/download/v1.2.2/DBNerd_1.2.2_aarch64.dmg",
+      },
+      {
+        name: "DBNerd_1.2.2_macOS_aarch64.zip",
+        platform: "macOS ZIP Archive",
+        size: "11.5 MB",
+        id: "dbnerd-release-macos-zip-v1.2.2",
+        directUrl: "https://github.com/nerd-riot/db-nerd/releases/download/v1.2.2/DBNerd_1.2.2_macOS_aarch64.zip",
+      },
+      {
+        name: "DBNerd_1.2.2_Windows_x64_Setup.exe",
+        platform: "Windows x64 Setup",
+        size: "9.7 MB",
+        id: "dbnerd-release-windows-setup-v1.2.2",
+        directUrl: "https://github.com/nerd-riot/db-nerd/releases/download/v1.2.2/DBNerd_1.2.2_Windows_x64_Setup.exe",
+      },
+      {
+        name: "DBNerd_1.2.2_Windows_x64_standalone.exe",
+        platform: "Windows Portable Standalone",
+        size: "15.9 MB",
+        id: "dbnerd-release-windows-standalone-v1.2.2",
+        directUrl: "https://github.com/nerd-riot/db-nerd/releases/download/v1.2.2/DBNerd_1.2.2_Windows_x64_standalone.exe",
+      },
+    ],
+  },
   {
     project: "DBNerd",
     version: "v0.1.0-beta.2",
@@ -127,6 +194,19 @@ export default function ReleasesPage() {
                 </ul>
               </div>
 
+              {/* Homebrew quick command if available */}
+              {rel.homebrew && (
+                <div className="p-3.5 rounded-lg bg-[#111318] border border-accent/40 flex items-center justify-between font-mono text-xs">
+                  <div className="flex items-center gap-2 text-zinc-200">
+                    <span className="text-accent font-bold">$</span>
+                    <code>{rel.homebrew}</code>
+                  </div>
+                  <span className="text-[10px] text-accent font-bold uppercase tracking-wider bg-accent/10 px-2 py-0.5 rounded border border-accent/30">
+                    Homebrew Cask
+                  </span>
+                </div>
+              )}
+
               {/* Assets list */}
               <div className="pt-4 border-t border-[#30343D] space-y-2">
                 <h4 className="font-mono text-xs uppercase tracking-wider text-dark-muted font-bold">
@@ -136,7 +216,7 @@ export default function ReleasesPage() {
                   {rel.assets.map((asset) => (
                     <a
                       key={asset.id}
-                      href={`/api/downloads/${asset.id}`}
+                      href={asset.directUrl || `/api/downloads/${asset.id}`}
                       className="p-3 rounded-lg bg-[#111318] border border-[#30343D] hover:border-accent transition-all flex items-center justify-between group"
                     >
                       <div className="space-y-0.5">

@@ -9,7 +9,7 @@ export interface ProjectItem {
   githubUrl: string;
   demoUrl?: string;
   downloadUrl?: string;
-  status: "Flagship / v0.1.0" | "Alpha" | "Experiment" | "Research" | "In Development";
+  status: "Flagship / v1.2.2" | "Flagship / v0.1.0" | "Alpha" | "Experiment" | "Research" | "In Development";
   isFlagship?: boolean;
   highlights: string[];
   primaryImage: string;
@@ -33,7 +33,7 @@ export const projectsConfig: ProjectItem[] = [
     githubUrl: "https://github.com/nerd-riot/db-nerd",
     demoUrl: "/download/dbnerd",
     downloadUrl: "/download/dbnerd",
-    status: "Flagship / v0.1.0",
+    status: "Flagship / v1.2.2",
     isFlagship: true,
     highlights: [
       "~45-65MB RAM footprint (vs 1.5GB+ in legacy IDEs)",
