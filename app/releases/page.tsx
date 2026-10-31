@@ -30,6 +30,51 @@ interface ReleaseItem {
 const releasesData: ReleaseItem[] = [
   {
     project: "DBNerd",
+    version: "v1.2.4",
+    date: "2026-10-31",
+    channel: "release",
+    channelBadge: "bg-emerald-500/20 border-emerald-500/40 text-emerald-400",
+    description: "Production update with automatic Snowflake schema resolution auto-recovery, active schema selector capsule in SQL Editor toolbar, and qualified context menu queries.",
+    homebrew: "brew install --cask nerd-riot/tap/dbnerd",
+    notes: [
+      "Snowflake Auto-Recovery Engine: Transparently intercepts error 002003 on unqualified queries, queries INFORMATION_SCHEMA to auto-discover the target schema, runs USE SCHEMA, and seamlessly re-executes.",
+      "SQL Editor Active Schema Selector: Adds dedicated schema dropdown pill in the SQL Editor toolbar to inspect and switch active schema across multi-schema Snowflake and PostgreSQL connections.",
+      "Sidebar Context Menu Hardening: All context menu actions (Copy Table Name, Query in New Tab, Copy SELECT, Copy INSERT, Copy DDL) now quote and qualify database and schema automatically.",
+      "Homebrew Tap Cask v1.2.4: Official release binary with verified sha256 checksums and automated postflight quarantine bypass.",
+    ],
+    assets: [
+      {
+        name: "DBNerd_1.2.4_aarch64.dmg",
+        platform: "macOS Apple Silicon (ARM64)",
+        size: "11.9 MB",
+        id: "dbnerd-release-macos-arm64-v1.2.4",
+        directUrl: "https://github.com/nerd-riot/db-nerd/releases/download/v1.2.4/DBNerd_1.2.4_aarch64.dmg",
+      },
+      {
+        name: "DBNerd_1.2.4_macOS_aarch64.zip",
+        platform: "macOS ZIP Archive",
+        size: "11.5 MB",
+        id: "dbnerd-release-macos-zip-v1.2.4",
+        directUrl: "https://github.com/nerd-riot/db-nerd/releases/download/v1.2.4/DBNerd_1.2.4_macOS_aarch64.zip",
+      },
+      {
+        name: "DBNerd_1.2.4_Windows_x64_Setup.exe",
+        platform: "Windows x64 Setup",
+        size: "9.8 MB",
+        id: "dbnerd-release-windows-setup-v1.2.4",
+        directUrl: "https://github.com/nerd-riot/db-nerd/releases/download/v1.2.4/DBNerd_1.2.4_Windows_x64_Setup.exe",
+      },
+      {
+        name: "DBNerd_1.2.4_Windows_x64_standalone.exe",
+        platform: "Windows Portable Standalone",
+        size: "16.0 MB",
+        id: "dbnerd-release-windows-standalone-v1.2.4",
+        directUrl: "https://github.com/nerd-riot/db-nerd/releases/download/v1.2.4/DBNerd_1.2.4_Windows_x64_standalone.exe",
+      },
+    ],
+  },
+  {
+    project: "DBNerd",
     version: "v1.2.3",
     date: "2026-10-31",
     channel: "release",
