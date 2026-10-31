@@ -30,6 +30,52 @@ interface ReleaseItem {
 const releasesData: ReleaseItem[] = [
   {
     project: "DBNerd",
+    version: "v1.2.5",
+    date: "2026-10-31",
+    channel: "release",
+    channelBadge: "bg-emerald-500/20 border-emerald-500/40 text-emerald-400",
+    description: "Production stability release featuring single-flight Snowflake browser SSO with mutual exclusion, persistent session caching across schema switching, and hardened query execution.",
+    homebrew: "brew install --cask nerd-riot/tap/dbnerd",
+    notes: [
+      "Snowflake Single-Flight SSO Mutex: Eliminates redundant browser tab redirects upon connection by serializing session initialization behind double-checked locking mutex.",
+      "Stable Session Caching: Decouples authentication cache keys from database/schema context so switching databases or schemas reuses existing active SSO sessions without re-authenticating.",
+      "Heartbeat Ping SSO Guard: Prevents background connection health checks from accidentally triggering interactive browser login flows.",
+      "Robust Query Result Processing: Safely disambiguates duplicate column names and provides automatic session recovery on expired credentials.",
+      "Homebrew Tap Cask v1.2.5: Official release binary with verified sha256 checksums and automated postflight quarantine bypass.",
+    ],
+    assets: [
+      {
+        name: "DBNerd_1.2.5_aarch64.dmg",
+        platform: "macOS Apple Silicon (ARM64)",
+        size: "11.9 MB",
+        id: "dbnerd-release-macos-arm64-v1.2.5",
+        directUrl: "https://github.com/nerd-riot/db-nerd/releases/download/v1.2.5/DBNerd_1.2.5_aarch64.dmg",
+      },
+      {
+        name: "DBNerd_1.2.5_macOS_aarch64.zip",
+        platform: "macOS ZIP Archive",
+        size: "11.5 MB",
+        id: "dbnerd-release-macos-zip-v1.2.5",
+        directUrl: "https://github.com/nerd-riot/db-nerd/releases/download/v1.2.5/DBNerd_1.2.5_macOS_aarch64.zip",
+      },
+      {
+        name: "DBNerd_1.2.5_Windows_x64_Setup.exe",
+        platform: "Windows x64 Setup",
+        size: "9.8 MB",
+        id: "dbnerd-release-windows-setup-v1.2.5",
+        directUrl: "https://github.com/nerd-riot/db-nerd/releases/download/v1.2.5/DBNerd_1.2.5_Windows_x64_Setup.exe",
+      },
+      {
+        name: "DBNerd_1.2.5_Windows_x64_standalone.exe",
+        platform: "Windows Portable Standalone",
+        size: "16.0 MB",
+        id: "dbnerd-release-windows-standalone-v1.2.5",
+        directUrl: "https://github.com/nerd-riot/db-nerd/releases/download/v1.2.5/DBNerd_1.2.5_Windows_x64_standalone.exe",
+      },
+    ],
+  },
+  {
+    project: "DBNerd",
     version: "v1.2.4",
     date: "2026-10-31",
     channel: "release",
